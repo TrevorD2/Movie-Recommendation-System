@@ -1,5 +1,4 @@
 import tensorflow as tf
-import numpy as np
 
 from _config_loader import load_config
 
@@ -37,21 +36,6 @@ def _get_last_non_padding_token_coordinates(tensor):
     coordinates = tf.stack([batch_indices, last_token_indices], axis=-1)
 
     return coordinates
-
-def _convert_train_label_to_eval_label(label):
-    last_token_coords = _get_last_non_padding_token_coordinates(label)
-    last_tokens = tf.gather_nd(label, last_token_coords)
-
-    one_hot_encoded = tf.cast(tf.one_hot(last_tokens, VOCAB_SIZE), dtype=tf.int32)
-    return one_hot_encoded
-
-def _indices_to_binary_vector(indices):
-    one_hot_encoded = tf.one_hot(indices, depth=VOCAB_SIZE)
-    
-    count_vector = tf.reduce_sum(one_hot_encoded, axis=1)
-
-    binary_vector = tf.clip_by_value(count_vector, 0, 1)
-    return tf.cast(binary_vector, dtype=tf.int32)
 
 def hit(label, pred, eval_k=EVAL_K):
     coordinates = _get_last_non_padding_token_coordinates(label)
