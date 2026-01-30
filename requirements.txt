@@ -1,7 +1,8 @@
 pandas
 numpy
 pyarrow
-torch
 fastapi
 uvicorn
 pyyaml
+tensorflow
+tensorflow-ranking
