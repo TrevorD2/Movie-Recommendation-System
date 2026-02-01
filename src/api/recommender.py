@@ -1,17 +1,20 @@
 import tensorflow as tf
-
-from scripts._config_loader import load_config
+from pathlib import Path
 
 import model.transformer
+from scripts._config_loader import load_config
 
 cfg = load_config()
 
-DEFAULT_PATH = cfg["output"]["out_model_path"]
+DEFAULT_PATH = Path(cfg["output"]["out_model_path"])
 MAX_SEQ_LEN = cfg["data"]["max_seq_len"]
 
+MOVIE_METADATA_PATH = Path("src\\data\\raw\\ml-1m\\movies.dat")
+
 class Recommender:
-    def __init__(self, model_path=DEFAULT_PATH):
+    def __init__(self, model_path=DEFAULT_PATH, movie_metadata_path=MOVIE_METADATA_PATH):
         self.model = tf.keras.models.load_model(model_path, compile=False)
+        self.id_mapping = self._get_mapping(movie_metadata_path)
 
     def recommend(self, interaction_history: list[int], k: int) -> list[int]:
         self._truncate(interaction_history, MAX_SEQ_LEN)
@@ -29,6 +32,9 @@ class Recommender:
         top_k = tf.argsort(predictions, direction="DESCENDING")[:k]
 
         return top_k.numpy().tolist()
+    
+    def translate(self, movie_ids: list[int]) -> list[str]:
+        return [self.id_mapping.get(movie_id, "UNK") for movie_id in movie_ids]
 
     def _pad(self, sequence, length):
         while len(sequence) < length:
@@ -38,8 +44,13 @@ class Recommender:
         while len(sequence) > length:
             sequence.pop(0)
 
+    def _get_mapping(self, path: Path) -> dict[int, str]:
+        mapping = {}
 
-if __name__ == '__main__':
-    rec = Recommender()
+        with open(path, 'r') as f:
+            for line in f:
+                id, name, genre = line.split("::")
 
-    print(rec.recommend([1, 4, 3, 1, 4], 10))
+                mapping[int(id)] = f"{name.strip()}:{genre.strip()}"
+
+        return mapping

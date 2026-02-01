@@ -12,5 +12,6 @@ def get_recommendation(recommend_request: RecommendRequest):
     k = recommend_request.k
     
     recommendations = recommender.recommend(interaction_history, k)
+    translated = recommender.translate(recommendations)
 
-    return {"recommendations": recommendations}
+    return {"recommendations": recommendations, "translated": translated}
