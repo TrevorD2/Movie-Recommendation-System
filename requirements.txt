@@ -5,4 +5,4 @@ fastapi
 uvicorn
 pyyaml
 tensorflow
-tensorflow-ranking
+"fastapi[standard]"

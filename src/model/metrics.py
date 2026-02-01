@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-from _config_loader import load_config
+from scripts._config_loader import load_config
 
 cfg = load_config()
 VOCAB_SIZE = cfg["data"]["vocab_size"]

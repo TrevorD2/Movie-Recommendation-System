@@ -1,8 +1,8 @@
 data:
-  raw_path: data/raw/ml-1m/ratings.dat
-  train_path: data/processed/train.parquet
-  val_path: data/processed/val.parquet
-  test_path: data/processed/test.parquet
+  raw_path: src/recommender/data/raw/ml-1m/ratings.dat
+  train_path: src/recommender/data/processed/train.parquet
+  val_path: src/recommender/data/processed/val.parquet
+  test_path: src/recommender/data/processed/test.parquet
   train_frac: 0.8
   val_frac: 0.1
   max_seq_len: 50
@@ -27,4 +27,4 @@ evaluation:
   eval_k: 50
 
 output:
-  out_model_path: output/out_model.keras
+  out_model_path: src/output/out_model.keras

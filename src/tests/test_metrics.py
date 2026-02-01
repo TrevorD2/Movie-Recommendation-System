@@ -1,9 +1,9 @@
 import unittest
 import numpy as np
 
-from metrics import *
+from model.metrics import *
 
-from _config_loader import load_config
+from scripts._config_loader import load_config
 
 cfg = load_config()
 VOCAB_SIZE = cfg["data"]["vocab_size"]

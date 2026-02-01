@@ -1,7 +1,7 @@
 import pandas as pd
 from pathlib import Path
 
-from _config_loader import load_config
+from recommender.scripts._config_loader import load_config
 
 
 cfg = load_config()

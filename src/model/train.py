@@ -1,10 +1,10 @@
 import tensorflow as tf
 from pathlib import Path
 
-import metrics
-import transformer
-from _config_loader import load_config
-from dataset import Dataset
+import model.metrics
+import model.transformer
+from scripts._config_loader import load_config
+from model.dataset import Dataset
 
 cfg = load_config()
 

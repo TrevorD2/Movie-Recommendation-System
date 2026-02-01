@@ -1,7 +1,8 @@
 import tensorflow as tf
 
-import transformer
-from _config_loader import load_config
+from scripts._config_loader import load_config
+
+import model.transformer
 
 cfg = load_config()
 
@@ -27,7 +28,7 @@ class Recommender:
 
         top_k = tf.argsort(predictions, direction="DESCENDING")[:k]
 
-        return top_k
+        return top_k.numpy().tolist()
 
     def _pad(self, sequence, length):
         while len(sequence) < length:
