@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 
-from model.metrics import *
+from evaluation.metrics import *
 
 from scripts._config_loader import load_config
 

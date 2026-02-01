@@ -1,10 +1,10 @@
 import tensorflow as tf
 from pathlib import Path
 
-import model.metrics
-import model.transformer
+import evaluation.metrics
+import model.transformer as transformer
 from scripts._config_loader import load_config
-from model.dataset import Dataset
+from dataset.dataset import Dataset
 
 cfg = load_config()
 
@@ -54,10 +54,10 @@ def train() -> None:
         clipnorm=1.0
     )
 
-    eval_metrics = metrics.get_eval_metrics(cfg)
+    eval_metrics = evaluation.metrics.get_eval_metrics(cfg)
 
     model.compile(
-        loss=metrics.masked_loss,
+        loss=evaluation.metrics.masked_loss,
         optimizer=optimizer,
         metrics=eval_metrics
     )
