@@ -13,14 +13,14 @@ data:
 model:
   type: transformer
   d_model: 128
-  dff: 512
-  num_layers: 2
+  dff: 256
+  num_layers: 1
   num_heads: 4
   dropout: 0.1
 
 training:
-  batch_size: 64
-  epochs: 10
+  batch_size: 32
+  epochs: 5
   learning_rate: 1e-3
 
 evaluation:
