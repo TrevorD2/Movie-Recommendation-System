@@ -3,6 +3,7 @@ data:
   train_path: src/data/processed/train.parquet
   val_path: src/data/processed/val.parquet
   test_path: src/data/processed/test.parquet
+  movie_metadata: src/data/raw/ml-1m/movies.dat
   train_frac: 0.8
   val_frac: 0.1
   max_seq_len: 50

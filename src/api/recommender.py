@@ -7,9 +7,9 @@ from scripts._config_loader import load_config
 cfg = load_config()
 
 DEFAULT_PATH = Path(cfg["output"]["out_model_path"])
+MOVIE_METADATA_PATH = Path(cfg["data"]["movie_metadata"])
 MAX_SEQ_LEN = cfg["data"]["max_seq_len"]
 
-MOVIE_METADATA_PATH = Path("src\\data\\raw\\ml-1m\\movies.dat")
 
 class Recommender:
     def __init__(self, model_path=DEFAULT_PATH, movie_metadata_path=MOVIE_METADATA_PATH):

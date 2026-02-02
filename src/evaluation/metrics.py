@@ -17,10 +17,7 @@ def get_eval_metrics(cfg) -> list:
 
     if "mrr" in cfg["evaluation"]["metrics"]:
         eval_metrics.append(mrr)
-
-    if "accuracy" in cfg["evaluation"]["metrics"]:
-        eval_metrics.append(masked_accuracy)
-
+        
     return eval_metrics
 
 def _get_last_non_padding_token_coordinates(tensor):
@@ -87,20 +84,6 @@ def mrr(label, pred):
     reciprical_ranks = tf.math.reciprocal(tf.cast(relevant_ranks, dtype=tf.float32))
 
     return tf.reduce_mean(reciprical_ranks)
-
-
-def masked_accuracy(label, pred):
-    pred = tf.argmax(pred, axis=2)
-    label = tf.cast(label, pred.dtype)
-    match = label == pred
-
-    mask = label != 0
-    match = match & mask
-
-    match = tf.cast(match, dtype=tf.float32)
-    mask = tf.cast(mask, dtype=tf.float32)
-
-    return tf.reduce_sum(match) / tf.reduce_sum(mask)
 
 def masked_loss(label, pred):
     mask = label != 0
